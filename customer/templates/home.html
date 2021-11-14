@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+	<section id="home">
+		<h1 align="center" class="h-primary">Welcome to Delicious.com</h1>
+		<h3 align="right">{{customer}}</h3><br>
+		<img src="{% static 'bg1.jpg' %}" height = "500px" top = "0px" left = "0px" width = "100%">
+    </section><br><br>
+	<h1>Restaurants</h1>
+	
+	{% for i in restaurant %}
+		<h4>{{i.name}}</h4>
+		<form action="{% url 'menu' %}" method="post">
+			{% csrf_token %}
+			<!-- <input type="submit" value="submit" name={{i.name}} class="btn btn-outline-secondary add-btn"> -->
+			<button value={{i.id}} name = 'try' class="btn btn-outline-success add-btn" data-action="add" type="submit">Menu</button>
+		</form> 
+		<hr>
+	{% endfor %}
+{% endblock content %}
