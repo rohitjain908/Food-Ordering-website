@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from accounts.models import *
 from restaurant.models import *
 from .models import *
@@ -26,7 +26,7 @@ def menu(request):
 				order = Order.objects.get(customer = customer,restaurant_id = restaurant.id, complete = False)
 
 			else:
-				order = Order.objects.create(customer = customer,restaurant_id = restaurant.id, complete = False)
+				order = Order.objects.create(customer = customer,restaurant_id = restaurant.id, complete = False,status="placed")
 				order.save()
 				print(order)
 
@@ -49,7 +49,7 @@ def add(request):
 			order = Order.objects.get(customer = customer,restaurant_id = restaurant.id, complete = False)
 
 		else:
-			order = Order.objects.create(customer = customer,restaurant_id = restaurant.id, complete = False)
+			order = Order.objects.create(customer = customer,restaurant_id = restaurant.id, complete = False,status="placed")
 			order.save()
 			print(order)
 
@@ -77,10 +77,16 @@ def cart(request):
 			order = Order.objects.get(customer = customer,restaurant_id = restaurant.id, complete = False)
 
 	else:
-		order = Order.objects.create(customer = customer,restaurant_id = restaurant.id, complete = False)
+		order = Order.objects.create(customer = customer,restaurant_id = restaurant.id, complete = False,status="placed")
 		order.save()
 		print(order)
 
 	items = Orderdish.objects.filter(order = order).all()
 	context = {'items':items,'order':order}
 	return render(request,'cart.html',context)
+
+def cart_order(request,order_id):
+	Order.objects.filter(id=order_id).update(complete=True)
+	
+
+	return HttpResponse("Ordered succesfully")
