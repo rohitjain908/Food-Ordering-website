@@ -5,6 +5,7 @@
 * Run this coomand:-python manage.py runserver.
 * A URL will be showned,copy paste that URL in browser.
 * In our project only superuser can add resturant.so for adding an resturant first you need to create superuser and then go to Django administration using url http://127.0.0.1:8000/admin and then add owner of resturant in owner model.after creating a onwer you can login in resturant(using owner's credantinal) using url http://127.0.0.1:8000/owner_login/
+* For creating superuser go into the project directory and run this command "python manage.py createsuperuser" and after that fill the requested credantials and by using these credantials you can login in Django administration.
 * Now you can explore project.
 
 
